@@ -2,7 +2,7 @@ import type { FC } from 'react';
 
 import { KeyboardAvoidingView, Platform, ScrollView, View } from 'react-native';
 
-import { useForm } from 'react-hook-form';
+import { useFormContext } from 'react-hook-form';
 
 import { ButtonSolid } from '@atoms';
 import { FormInput } from '@molecules';
@@ -16,7 +16,7 @@ export const CreateUserForm: FC<ICreateUserFormProps> = ({ onSubmit, onReset, is
 		control,
 		formState: { errors },
 		handleSubmit,
-	} = useForm<IUserItemProps>();
+	} = useFormContext<IUserItemProps>();
 
 	return (
 		<KeyboardAvoidingView

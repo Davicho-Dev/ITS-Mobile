@@ -10,7 +10,7 @@ import { useCreateUser } from '@hooks';
 
 import type { IUserItemProps } from '@interfaces';
 
-const CreatePage = () => {
+const CreateUserPage = () => {
 	const router = useRouter();
 
 	const form = useForm();
@@ -35,4 +35,4 @@ const CreatePage = () => {
 	);
 };
 
-export default CreatePage;
+export default CreateUserPage;
