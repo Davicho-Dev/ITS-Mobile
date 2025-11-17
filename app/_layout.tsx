@@ -1,24 +1,30 @@
-import { DarkTheme, DefaultTheme, ThemeProvider } from '@react-navigation/native';
 import { Stack } from 'expo-router';
 import { StatusBar } from 'expo-status-bar';
+
+import { QueryClient } from '@tanstack/query-core';
+import { QueryClientProvider } from '@tanstack/react-query';
+
 import 'react-native-reanimated';
 
-import { useColorScheme } from '@/hooks/use-color-scheme';
+const queryClient = new QueryClient();
 
-export const unstable_settings = {
-  anchor: '(tabs)',
+const RootLayout = () => {
+	return (
+		<QueryClientProvider client={queryClient}>
+			<Stack
+				screenOptions={{
+					headerTitleAlign: 'center',
+					contentStyle: {
+						padding: 24,
+						backgroundColor: 'white',
+					},
+				}}
+			>
+				<Stack.Screen name='index' options={{ title: 'Users' }} />
+				<Stack.Screen name='users/[id]/index' options={{ title: 'Users ID' }} />
+				<StatusBar style='auto' />
+			</Stack>
+		</QueryClientProvider>
+	);
 };
-
-export default function RootLayout() {
-  const colorScheme = useColorScheme();
-
-  return (
-    <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
-      <Stack>
-        <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
-        <Stack.Screen name="modal" options={{ presentation: 'modal', title: 'Modal' }} />
-      </Stack>
-      <StatusBar style="auto" />
-    </ThemeProvider>
-  );
-}
+export default RootLayout;
