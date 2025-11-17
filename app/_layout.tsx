@@ -21,7 +21,9 @@ const RootLayout = () => {
 				}}
 			>
 				<Stack.Screen name='index' options={{ title: 'Users' }} />
-				<Stack.Screen name='users/[id]/index' options={{ title: 'Users ID' }} />
+				<Stack.Screen name='users/[id]/index' options={{ title: 'User by ID' }} />
+				<Stack.Screen name='create' options={{ title: 'Create User' }} />
+				<Stack.Screen name='users/[id]/edit/index' options={{ title: 'Edit User' }} />
 				<StatusBar style='auto' />
 			</Stack>
 		</QueryClientProvider>
