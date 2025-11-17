@@ -8,7 +8,7 @@ export const useGetUserList = () => {
 		queryFn: async () => getUserList(),
 	});
 
-	if (!data?.data) return { users: [], isError, isLoading };
+	if (!data?.results) return { users: [], isError, isLoading };
 
-	return { users: data?.data, isError, isLoading };
+	return { users: data?.results, isError, isLoading };
 };
