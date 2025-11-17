@@ -1,7 +1,7 @@
 import type { IUserProps } from '@interfaces';
 
 interface IUsersProps {
-	data: IUserProps[];
+	results: IUserProps[];
 }
 
 export type { IUsersProps };
