@@ -1,15 +1,26 @@
 import { Text, View } from 'react-native';
 
-import { useLocalSearchParams } from 'expo-router';
+import { useLocalSearchParams, useRouter } from 'expo-router';
 
 import { ButtonSolid, Separator } from '@atoms';
-import { useGetUserById } from '@hooks';
+import { useDeleteUserById, useGetUserById } from '@hooks';
 import { Error, Loading } from '@molecules';
+import { useEffect } from 'react';
 
 const UserByIdPage = () => {
+	const router = useRouter();
+
 	const { id } = useLocalSearchParams();
 
-	const { user, isLoading, isError } = useGetUserById({ id: id as string });
+	const userId = typeof id === 'string' ? id : id[0];
+
+	const { user, isLoading, isError } = useGetUserById({ id: userId });
+
+	const { mutate, isPending, isSuccess } = useDeleteUserById({ id: userId });
+
+	useEffect(() => {
+		if (isSuccess) router.push('/');
+	}, [isSuccess]);
 
 	if (isLoading) return <Loading />;
 
@@ -56,8 +67,12 @@ const UserByIdPage = () => {
 				</View>
 			</View>
 			<View style={{ flexShrink: 1, rowGap: 8 }}>
-				<ButtonSolid variant='secondary'>Editar</ButtonSolid>
-				<ButtonSolid variant='danger'>Eliminar</ButtonSolid>
+				<ButtonSolid variant='secondary' onPress={() => router.navigate(`/users/${userId}/edit`)}>
+					Editar
+				</ButtonSolid>
+				<ButtonSolid variant='danger' onPress={() => mutate({ id: userId })}>
+					{isPending ? 'Eliminando...' : 'Eliminar'}
+				</ButtonSolid>
 			</View>
 		</View>
 	);
